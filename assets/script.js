@@ -21,19 +21,29 @@ const bannerImg = document.querySelector(".banner-img");
 const bannerText = document.querySelector("#banner p");
 const dotsContainer = document.querySelector(".dots");
 
+/** Display the dots */
+let theDiv = "";
+for (let i = 0; i < slides.length; i++) {
+    theDiv += `<div id="${i}" class='dot ${i === 0 ? 'dot_selected' : ''}'></div>`;
+}
+dotsContainer.innerHTML = theDiv;
+
+/** Function Toggle selected dot */
+function switchSelectedDot(actualImage) {
+    let dots = document.querySelectorAll(".dot");
+    dots.forEach(dot => {
+        dot.classList.remove("dot_selected");
+    });
+    dots[actualImage].classList.add("dot_selected");
+}
+
 /** Event listeners */
-// Tester le clic sur la flèche droite
 document.querySelector(".arrow_right").addEventListener("click", () => {
-    console.log("Flèche droite cliquée");  // Message dans la console
-    // alert("Flèche droite cliquée");  // Ou utilisez un pop-up avec alert
     currentIndex = (currentIndex + 1) % slides.length;
     updateCarousel();
 });
 
-// Tester le clic sur la flèche gauche
 document.querySelector(".arrow_left").addEventListener("click", () => {
-    console.log("Flèche gauche cliquée");  // Message dans la console
-    // alert("Flèche gauche cliquée");  // Ou utilisez un pop-up avec alert
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     updateCarousel();
 });
